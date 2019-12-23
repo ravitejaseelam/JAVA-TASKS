@@ -26,18 +26,12 @@ public class New {
                     String dis = sc.nextLine();
                     System.out.println("Due Date");
                     Date due=new Date();
-                    t2.add(new task(name, dis, due));
+                    TaskManager.add(t2,name,dis,due);
+                    //t2.add(new task(name, dis, due));
                     break;
                 case 2:
                     System.out.println("Contents are Displayed");
-                    for (task obj : t2) {
-                        System.out.println("Name:"+obj.name1);
-                        System.out.println();
-                        System.out.println("Discription:"+obj.dis1);
-                        System.out.println();
-                        System.out.println("Due Date:"+obj.due1);
-                        System.out.println();
-                    }
+                    TaskManager.display(t2);
                     break;
                 case 3:
                     k = 0;
@@ -45,22 +39,7 @@ public class New {
                     String n = sc.next();
                     sc.nextLine();
                     System.out.println(n);
-                    for (task obj : t2) {
-                        if (obj.name1.equals(n)) {
-                            System.out.println("Found");
-                            System.out.println("Name:"+obj.name1);
-                            System.out.println();
-                            System.out.println("Discription:"+obj.dis1);
-                            System.out.println();
-                            System.out.println("Date:"+obj.due1);
-                            System.out.println();
-                            k++;
-                        }
-                    }
-                    if (k == 0) {
-                        System.out.println("Not Found");
-                        System.out.println();
-                    }
+                   TaskManager.search(t2,n);
 
                     break;
                 case 4:
@@ -70,25 +49,10 @@ public class New {
                     n = sc.next();
                     sc.nextLine();
                     System.out.println(n);
-                    for (task obj : t2) {
-                        if (obj.name1.equals(n)) {
-                            System.out.println("Deleted");
-                            System.out.println("Name:");
-                            System.out.println(obj.name1);
-                            System.out.println("Discription:");
-                            System.out.println(obj.dis1);
-                            System.out.println("Due Date:");
-                            System.out.println(obj.due1);
-                            System.out.println();
-                            k++;
-                            t2.remove(obj);
-                        }
-                    }
-                    if (k == 0) {
-                        System.out.println("Not Found");
-                        System.out.println();
-                    }
-            }                catch (Exception e){
+                    TaskManager.delete(t2, n);
+                }              
+
+                catch (Exception e){
                     System.out.println("List has become empty");
                     System.out.println();
                 }
