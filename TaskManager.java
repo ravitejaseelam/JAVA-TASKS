@@ -4,9 +4,9 @@ import java.util.*;
 
 public class TaskManager {
     List<task> t2 = new ArrayList<task>();
-public static void  add(List<task> t2,String name,String dis,Date due)
+public static void  add(List<task> t2,String name,String dis,Date due,status st)
 {
-    t2.add(new task(name, dis, due));
+    t2.add(new task(name, dis, due,st));
 }
     public static void  display(List<task> t2)
     {
@@ -16,6 +16,8 @@ public static void  add(List<task> t2,String name,String dis,Date due)
             System.out.println("Discription:"+obj.dis1);
             System.out.println();
             System.out.println("Due Date:"+obj.due1);
+            System.out.println();
+            System.out.println("Status:"+obj.st1);
             System.out.println();
         }
     }
@@ -30,6 +32,8 @@ public static void  add(List<task> t2,String name,String dis,Date due)
                 System.out.println("Discription:"+obj.dis1);
                 System.out.println();
                 System.out.println("Date:"+obj.due1);
+                System.out.println();
+                System.out.println("Status:"+obj.st1);
                 System.out.println();
                 k++;
             }
@@ -50,6 +54,8 @@ public static void  add(List<task> t2,String name,String dis,Date due)
                 System.out.println(obj.dis1);
                 System.out.println("Due Date:");
                 System.out.println(obj.due1);
+                System.out.println();
+                System.out.println("Status:"+obj.st1);
                 System.out.println();
                 k++;
                 t2.remove(obj);

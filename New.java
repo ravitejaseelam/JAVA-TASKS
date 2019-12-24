@@ -26,7 +26,11 @@ public class New {
                     String dis = sc.nextLine();
                     System.out.println("Due Date");
                     Date due=new Date();
-                    TaskManager.add(t2,name,dis,due);
+                    System.out.println("Give any of Assigned,InProgress,Complete");
+                    String sta=sc.nextLine();
+                    status st=status.valueOf(sta);
+                    TaskManager.add(t2,name,dis,due,st);
+
                     //t2.add(new task(name, dis, due));
                     break;
                 case 2:
@@ -50,7 +54,7 @@ public class New {
                     sc.nextLine();
                     System.out.println(n);
                     TaskManager.delete(t2, n);
-                }              
+                }
 
                 catch (Exception e){
                     System.out.println("List has become empty");
