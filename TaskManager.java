@@ -19,29 +19,19 @@ public class TaskManager {
 
     public List<Task> search( String n) {
         List<Task> nameSearchList = new ArrayList<Task>();
-        nameSearchList.clear();
-        int flag = 0;
         for (Task obj : taskList) {
             if (obj.name1.equals(n))
                 nameSearchList.add(obj);
-            flag++;
         }
-        if (flag == 0)
-            nameSearchList= null;
             return nameSearchList;
 
     }
     public List<Task> searchStatus( String n) {
         List<Task> statusSerchList = new ArrayList<Task>();
-        statusSerchList.clear();
-        int flag = 0;
         for (Task obj : taskList) {
             if (obj.st1.equals(Status.valueOf(n)))
                 statusSerchList.add(obj);
-            flag++;
         }
-        if (flag == 0)
-            statusSerchList=null;
             return statusSerchList;
 
     }
