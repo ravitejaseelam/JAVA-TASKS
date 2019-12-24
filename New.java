@@ -3,11 +3,8 @@ import java.util.*;
 
 public class New {
 
-
     public static void main(String[] args) {
       TaskManager tm =new TaskManager();
-        List<Task> t2 = new ArrayList<Task>();
-        List<Task> t1 = new ArrayList<Task>();
         while (true) {
             System.out.println("Select one of the below task");
             System.out.println("1.Add elements");
@@ -27,56 +24,48 @@ public class New {
                     sc.nextLine();
                     System.out.println("Discription about task");
                     String dis = sc.nextLine();
-                    System.out.println("Due Date");
                     Date due=new Date();
-                    System.out.println("Status (any of Assigned,InProgress,Complete)");
-                    String sta=sc.nextLine();
-                    Status st= Status.valueOf(sta);
-                    id=tm.idAllocate(t2,name,dis,due,st);
-
-
-                    t2.add(new Task(name, dis, due,st,id));
+                    Status st= Status.valueOf("Assigned");
+                    id=tm.add(name,dis,due,st);
                     break;
-
 
                 case 2:
                     System.out.println("Contents are Displayed");
-                   // tm.display(t2);
-                    for (Task obj : t2) {
+                    List <Task> taskList=tm.display();
+                    for (Task obj : taskList) {
                         System.out.println("Id:"+obj.id1);
                         System.out.println("Name:"+obj.name1);
                         System.out.println("Discription:"+obj.dis1);
-                        System.out.println("Due Date:"+obj.due1);
+                        System.out.println("Date:"+obj.due1);
                         System.out.println("Status:"+obj.st1);
                         System.out.println();
                     }
                     break;
 
-
                 case 3:
                     System.out.println("Enter name to be searched");
                     String n = sc.next();
                     sc.nextLine();
-                    List<Task> t3=tm.search(t2,n);
+                    List<Task> nameSearchList=tm.search(n);
 
-                   if(t3==null)
+                   if(nameSearchList==null)
                    {
                        System.out.println("Not Found");
                    }
                    else {
-                       for (Task obj : t3) {
+                       for (Task obj : nameSearchList) {
                            System.out.println("Id:"+obj.id1);
                            System.out.println("Name:"+obj.name1);
                            System.out.println();
                        }
                        System.out.println("Enter id to get full details");
                        id=sc.nextInt();
-                       for (Task obj : t3) {
+                       for (Task obj : nameSearchList) {
                            if (id==obj.id1){
                                System.out.println("ID:" + obj.id1);
                                System.out.println("Name:" + obj.name1);
                                System.out.println("Discription:" + obj.dis1);
-                               System.out.println("Due Date:" + obj.due1);
+                               System.out.println("Date:" + obj.due1);
                                System.out.println("Status:" + obj.st1);
                                System.out.println();
 
@@ -87,7 +76,6 @@ public class New {
                    }
                     break;
 
-
                 case 4:
                 try {
 
@@ -95,11 +83,11 @@ public class New {
                     n = sc.next();
                     sc.nextLine();
                     System.out.println(n);
-                    List<Task>t4 = tm.search(t2, n);
-                    if (t4 == null) {
+                    List<Task>deleteList = tm.search( n);
+                    if (deleteList == null) {
                         System.out.println("Not Found");
                     } else {
-                        for (Task obj : t4) {
+                        for (Task obj : deleteList) {
                             System.out.println("Id:" + obj.id1);
                             System.out.println("Name:" + obj.name1);
                             System.out.println();
@@ -107,9 +95,9 @@ public class New {
                         System.out.println("Enter id to get deleted perminently");
                         id = sc.nextInt();
 
-                        for (Task obj : t4) {
+                        for (Task obj : deleteList) {
                             if (id == obj.id1) {
-                                t2 = tm.delete(t2, obj);
+                                 tm.delete(obj);
                             }
                         }
                     }
@@ -119,18 +107,18 @@ public class New {
                     System.out.println("List has become empty");
                     System.out.println();
                 }
-
                     break;
+
                 case 5:
                     System.out.println("Enter status to be searched(Assigned,InProgress,Complete)");
                     n = sc.next();
                     sc.nextLine();
                     System.out.println(n);
-                    List<Task> t5=tm.searchStatus(t2,n);
-                    if(t5==null)
+                    List<Task> satusSearchList=tm.searchStatus(n);
+                    if(satusSearchList==null)
                         System.out.println("Not Found");
                     else {
-                        for (Task obj : t5) {
+                        for (Task obj : satusSearchList) {
                             System.out.println("Id:"+obj.id1);
                             System.out.println();
                             System.out.println("Name:"+obj.name1);
@@ -138,12 +126,12 @@ public class New {
                         }
                         System.out.println("Enter id to get full details");
                         id=sc.nextInt();
-                        for (Task obj : t5) {
+                        for (Task obj : satusSearchList) {
                             if (id==obj.id1){
                                 System.out.println("ID:" + obj.id1);
                                 System.out.println("Name:" + obj.name1);
                                 System.out.println("Discription:" + obj.dis1);
-                                System.out.println("Due Date:" + obj.due1);
+                                System.out.println("Date:" + obj.due1);
                                 System.out.println("Status:" + obj.st1);
                                 System.out.println();
 
