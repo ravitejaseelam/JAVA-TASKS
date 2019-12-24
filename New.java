@@ -44,13 +44,9 @@ public class New {
                    // tm.display(t2);
                     for (Task obj : t2) {
                         System.out.println("Id:"+obj.id1);
-                        System.out.println();
                         System.out.println("Name:"+obj.name1);
-                        System.out.println();
                         System.out.println("Discription:"+obj.dis1);
-                        System.out.println();
                         System.out.println("Due Date:"+obj.due1);
-                        System.out.println();
                         System.out.println("Status:"+obj.st1);
                         System.out.println();
                     }
@@ -61,32 +57,26 @@ public class New {
                     System.out.println("Enter name to be searched");
                     String n = sc.next();
                     sc.nextLine();
-                    System.out.println(n);
-                    t1=tm.search(t2,n);
+                    List<Task> t3=tm.search(t2,n);
 
-                   if(t1==null)
+                   if(t3==null)
                    {
                        System.out.println("Not Found");
                    }
                    else {
-                       for (Task obj : t1) {
+                       for (Task obj : t3) {
                            System.out.println("Id:"+obj.id1);
-                           System.out.println();
                            System.out.println("Name:"+obj.name1);
                            System.out.println();
                        }
                        System.out.println("Enter id to get full details");
                        id=sc.nextInt();
-                       for (Task obj : t1) {
+                       for (Task obj : t3) {
                            if (id==obj.id1){
                                System.out.println("ID:" + obj.id1);
-                               System.out.println();
                                System.out.println("Name:" + obj.name1);
-                               System.out.println();
                                System.out.println("Discription:" + obj.dis1);
-                               System.out.println();
                                System.out.println("Due Date:" + obj.due1);
-                               System.out.println();
                                System.out.println("Status:" + obj.st1);
                                System.out.println();
 
@@ -105,20 +95,19 @@ public class New {
                     n = sc.next();
                     sc.nextLine();
                     System.out.println(n);
-                    t1 = tm.search(t2, n);
-                    if (t1 == null) {
+                    List<Task>t4 = tm.search(t2, n);
+                    if (t4 == null) {
                         System.out.println("Not Found");
                     } else {
-                        for (Task obj : t1) {
+                        for (Task obj : t4) {
                             System.out.println("Id:" + obj.id1);
-                            System.out.println();
                             System.out.println("Name:" + obj.name1);
                             System.out.println();
                         }
                         System.out.println("Enter id to get deleted perminently");
                         id = sc.nextInt();
 
-                        for (Task obj : t1) {
+                        for (Task obj : t4) {
                             if (id == obj.id1) {
                                 t2 = tm.delete(t2, obj);
                             }
@@ -137,11 +126,11 @@ public class New {
                     n = sc.next();
                     sc.nextLine();
                     System.out.println(n);
-                    t1=tm.searchStatus(t2,n);
-                    if(t1==null)
+                    List<Task> t5=tm.searchStatus(t2,n);
+                    if(t5==null)
                         System.out.println("Not Found");
                     else {
-                        for (Task obj : t1) {
+                        for (Task obj : t5) {
                             System.out.println("Id:"+obj.id1);
                             System.out.println();
                             System.out.println("Name:"+obj.name1);
@@ -149,16 +138,12 @@ public class New {
                         }
                         System.out.println("Enter id to get full details");
                         id=sc.nextInt();
-                        for (Task obj : t1) {
+                        for (Task obj : t5) {
                             if (id==obj.id1){
                                 System.out.println("ID:" + obj.id1);
-                                System.out.println();
                                 System.out.println("Name:" + obj.name1);
-                                System.out.println();
                                 System.out.println("Discription:" + obj.dis1);
-                                System.out.println();
                                 System.out.println("Due Date:" + obj.due1);
-                                System.out.println();
                                 System.out.println("Status:" + obj.st1);
                                 System.out.println();
 

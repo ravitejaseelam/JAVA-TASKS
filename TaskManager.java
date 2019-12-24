@@ -4,7 +4,6 @@ import java.util.*;
 
 public class TaskManager {
     int id = 0;
-    List<Task> t2 = new ArrayList<Task>();
     List<Task> t1 = new ArrayList<Task>();
 
     public int idAllocate(List<Task> t2, String name, String dis, Date due, Status st) {
@@ -13,6 +12,7 @@ public class TaskManager {
     }
 
     public List<Task> search(List<Task> t2, String n) {
+        t1.clear();
         int flag = 0;
         for (Task obj : t2) {
             if (obj.name1.equals(n))
@@ -26,6 +26,7 @@ public class TaskManager {
 
     }
     public List<Task> searchStatus(List<Task> t2, String n) {
+        t1.clear();
         int flag = 0;
         for (Task obj : t2) {
             if (obj.st1.equals(Status.valueOf(n)))
@@ -40,6 +41,7 @@ public class TaskManager {
     }
 
     public List<Task> delete(List<Task> t2, Task obj) {
+        t1.clear();
         t2.remove(obj);
         return t2;
     }
