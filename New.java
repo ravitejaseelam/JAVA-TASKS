@@ -32,7 +32,7 @@ public class New {
                     System.out.println("Status (any of Assigned,InProgress,Complete)");
                     String sta=sc.nextLine();
                     Status st= Status.valueOf(sta);
-                    id=tm.IdAllocate(t2,name,dis,due,st);
+                    id=tm.idAllocate(t2,name,dis,due,st);
 
 
                     t2.add(new Task(name, dis, due,st,id));
@@ -62,7 +62,7 @@ public class New {
                     String n = sc.next();
                     sc.nextLine();
                     System.out.println(n);
-                    t1=tm.Search(t2,n);
+                    t1=tm.search(t2,n);
 
                    if(t1==null)
                    {
@@ -105,7 +105,7 @@ public class New {
                     n = sc.next();
                     sc.nextLine();
                     System.out.println(n);
-                    t1 = tm.Search(t2, n);
+                    t1 = tm.search(t2, n);
                     if (t1 == null) {
                         System.out.println("Not Found");
                     } else {
@@ -120,7 +120,7 @@ public class New {
 
                         for (Task obj : t1) {
                             if (id == obj.id1) {
-                                t2 = tm.Delete(t2, obj);
+                                t2 = tm.delete(t2, obj);
                             }
                         }
                     }
@@ -137,7 +137,7 @@ public class New {
                     n = sc.next();
                     sc.nextLine();
                     System.out.println(n);
-                    t1=tm.SearchStatus(t2,n);
+                    t1=tm.searchStatus(t2,n);
                     if(t1==null)
                         System.out.println("Not Found");
                     else {

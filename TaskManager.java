@@ -7,12 +7,12 @@ public class TaskManager {
     List<Task> t2 = new ArrayList<Task>();
     List<Task> t1 = new ArrayList<Task>();
 
-    public int IdAllocate(List<Task> t2, String name, String dis, Date due, Status st) {
+    public int idAllocate(List<Task> t2, String name, String dis, Date due, Status st) {
         id++;
         return id;
     }
 
-    public List<Task> Search(List<Task> t2, String n) {
+    public List<Task> search(List<Task> t2, String n) {
         int flag = 0;
         for (Task obj : t2) {
             if (obj.name1.equals(n))
@@ -25,7 +25,7 @@ public class TaskManager {
             return t1;
 
     }
-    public List<Task> SearchStatus(List<Task> t2, String n) {
+    public List<Task> searchStatus(List<Task> t2, String n) {
         int flag = 0;
         for (Task obj : t2) {
             if (obj.st1.equals(Status.valueOf(n)))
@@ -39,7 +39,7 @@ public class TaskManager {
 
     }
 
-    public List<Task> Delete(List<Task> t2, Task obj) {
+    public List<Task> delete(List<Task> t2, Task obj) {
         t2.remove(obj);
         return t2;
     }
