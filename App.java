@@ -12,13 +12,14 @@ public class App {
             System.out.println("3.Search element by name");
             System.out.println("4.Delete elements by name");
             System.out.println("5.Search by status");
-            System.out.println("6.Exit");
+            System.out.println("6.Update");
+            System.out.println("7.Exit");
             System.out.println();
             Scanner sc = new Scanner(System.in);
             String a = sc.next();
             switch (a) {
                 case "1":
-                    int id;
+                    String id;
                     System.out.println("Name");
                     String name = sc.next();
                     sc.nextLine();
@@ -26,11 +27,11 @@ public class App {
                     String dis = sc.nextLine();
                     Date due=new Date();
                     Status st= Status.valueOf("Assigned");
-                    id=tm.add(name,dis,due,st);
+                    tm.add(name,dis,due,st);
+                    System.out.println(".............Added...............");
                     break;
 
                 case "2":
-                    System.out.println("Contents are Displayed");
                     List <Task> taskList=tm.display();
                     for (Task obj : taskList) {
                         System.out.println("Id:"+obj.id1);
@@ -39,6 +40,7 @@ public class App {
                         System.out.println("Date:"+obj.due1);
                         System.out.println("Status:"+obj.st1);
                         System.out.println();
+                        System.out.println(".............Contents...............");
                     }
                     break;
 
@@ -59,9 +61,9 @@ public class App {
                            System.out.println();
                        }
                        System.out.println("Enter id to get full details");
-                       id=sc.nextInt();
+                       id=sc.next();
                        for (Task obj : nameSearchList) {
-                           if (id==obj.id1){
+                           if (obj.id1.equals(id)){
                                System.out.println("ID:" + obj.id1);
                                System.out.println("Name:" + obj.name1);
                                System.out.println("Discription:" + obj.dis1);
@@ -74,6 +76,7 @@ public class App {
 
 
                    }
+                    System.out.println(".............Contents...............");
                     break;
 
                 case "4":
@@ -91,10 +94,10 @@ public class App {
                             System.out.println();
                         }
                         System.out.println("Enter id to get deleted perminently");
-                        id = sc.nextInt();
+                        id = sc.next();
 
                         for (Task obj : deleteList) {
-                            if (id == obj.id1) {
+                            if (obj.id1.equals(id)) {
                                  tm.delete(obj);
                             }
                         }
@@ -104,6 +107,7 @@ public class App {
                     System.out.println("List has become empty");
                     System.out.println();
                 }
+                    System.out.println(".............Deleted...............");
                     break;
 
                 case "5":
@@ -120,9 +124,9 @@ public class App {
                             System.out.println();
                         }
                         System.out.println("Enter id to get full details");
-                        id=sc.nextInt();
+                        id=sc.next();
                         for (Task obj : satusSearchList) {
-                            if (id==obj.id1){
+                            if (obj.id1.equals(id)){
                                 System.out.println("ID:" + obj.id1);
                                 System.out.println("Name:" + obj.name1);
                                 System.out.println("Discription:" + obj.dis1);
@@ -132,10 +136,36 @@ public class App {
 
                             }
                         }
+                    System.out.println(".............Contents...............");
 
                     break;
 
                 case "6":
+                    System.out.println("Enter name to be updated");
+                    n = sc.next();
+                    sc.nextLine();
+                    System.out.println(n);
+                    List<Task>updateList = tm.search( n);
+
+                    for (Task obj : updateList) {
+                        System.out.println("Id:" + obj.id1);
+                        System.out.println("Name:" + obj.name1);
+                        System.out.println();
+                    }
+                    System.out.println("Enter id to edit");
+                    id = sc.next();
+
+                    for (Task obj : updateList) {
+                        if (obj.id1.equals(id)) {
+                            System.out.println("Change the Status to(Assigned,InProgress,Complete)");
+                            String status=sc.next();
+                            tm.updateStatus(status,n,id);
+                        }
+                    }
+                    System.out.println(".............Updated...............");
+                    break;
+
+                case "7":
                     System.exit(1);
                     break;
 

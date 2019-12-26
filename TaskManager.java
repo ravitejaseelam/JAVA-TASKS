@@ -3,43 +3,38 @@ package com.raviteja;
 import java.util.*;
 
 public class TaskManager {
-    int id = 0;
-    List<Task> taskList = new ArrayList<Task>();
+   //InMemoryTaskRepository repository=new InMemoryTaskRepository();
+    TaskFileRepository repository =new TaskFileRepository();
+    int id =0;
 
     public List<Task> display()
     {
+        List<Task> taskList= repository.display();
         return taskList;
     }
 
-    public int add( String name, String dis, Date due, Status st) {
-        id++;
-        taskList.add(new Task(name, dis, due,st,id));
-        return id;
+
+    public void add( String name, String dis, Date due, Status st) {
+        String id = UUID.randomUUID().toString();
+        repository.add(name,dis,due,st,id);
     }
 
     public List<Task> search( String n) {
-        List<Task> nameSearchList = new ArrayList<Task>();
-        for (Task obj : taskList) {
-            if (obj.name1.equals(n))
-                nameSearchList.add(obj);
-        }
+        List<Task> nameSearchList = repository.search(n);
             return nameSearchList;
 
     }
     public List<Task> searchStatus( String n) {
-        List<Task> statusSerchList = new ArrayList<Task>();
-        for (Task obj : taskList) {
-            if (obj.st1.equals(Status.valueOf(n)))
-                statusSerchList.add(obj);
-        }
+        List<Task> statusSerchList = repository.searchStatus(n);
             return statusSerchList;
 
     }
 
     public void delete( Task obj) {
-        List<Task> deletedList = new ArrayList<Task>();
-        deletedList.clear();
-        taskList.remove(obj);
+        repository.delete(obj);
+    }
+    public void updateStatus(String status,String name ,String id ){
+        repository.updateStatus(status,name,id);
     }
 }
 
