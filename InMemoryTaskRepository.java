@@ -1,25 +1,66 @@
 package com.raviteja;
 
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class InMemoryTaskRepository implements TaskRepository{
     List<Task> taskList = new ArrayList<Task>();
-    public void add(String name, String dis, Date due, Status st,String id) {
-        taskList.add(new Task(name, dis, due,st,id));
+    public void add(String name, String dis, Date due, Status st,String id,Date dueDate) {
+        taskList.add(new Task(name, dis, due,st,id,dueDate));
     }
 
     @Override
-    public void updateStatus(String status, String name, String id) {
+    public void updateStatus(Status status, String name, String id) {
+
         for (Task obj : taskList) {
-            if (obj.name1.equals(name)&&obj.id1.equals(id))
-                obj.st1=Status.valueOf(status);
+            if (obj.name1.equals(name) && obj.id1.equals(id))
+                obj.st1 = status;
         }
     }
+
+    @Override
+    public List<Task> getPendingTask() {
+        List<Task> pendingList = new ArrayList<Task>();
+        for (Task obj : taskList) {
+            if (!obj.name1.equals(Status.valueOf("Complete")))
+                pendingList.add(obj);
+        }
+        return pendingList;
+    }
+
+    @Override
+    public List<Task> getTodaysTask(Date date) throws ParseException {
+        List<Task> todaysTask = new ArrayList<Task>();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
+        String strDate = dateFormat.format(date);
+        Date d1 = formatter1.parse(strDate);
+        Date d2;
+        for (Task obj : taskList) {
+            String strDueDate = dateFormat.format(obj.due1);
+            d2=formatter1.parse(strDueDate);
+            // System.out.println(d1+"   "+d2);
+            if (d1.compareTo(d2)==0)
+            {
+
+                todaysTask.add(obj);
+            }
+
+        }
+
+        return todaysTask;
+    }
+
+
 
     public List<Task> display()
     {
         return taskList;
     }
+
     public List<Task> search( String n) {
         List<Task> nameSearchList = new ArrayList<Task>();
         for (Task obj : taskList) {
@@ -38,8 +79,11 @@ public class InMemoryTaskRepository implements TaskRepository{
         return statusSerchList;
 
     }
-    public void delete( Task obj) {
+    public void delete( String n,String id) {
         List<Task> deletedList = new ArrayList<Task>();
-        taskList.remove(obj);
+        for (Task obj : taskList) {
+            if (obj.id1.equals(Status.valueOf(id)))
+                taskList.remove(obj);
+        }
     }
 }
