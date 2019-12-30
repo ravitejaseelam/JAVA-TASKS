@@ -143,6 +143,4 @@ public class TaskDatabase implements TaskRepository{
 
         return todaysList;
     }
-
-
 }

@@ -8,6 +8,7 @@ public class App {
 
     public static void main(String[] args) throws ParseException, SQLException {
       TaskManager tm =new TaskManager();
+      int flag=0;
         while (true) {
             System.out.println("Select one of the below task");
             System.out.println("1.Add elements");
@@ -22,30 +23,42 @@ public class App {
             System.out.println();
             Scanner sc = new Scanner(System.in);
             String a = sc.next();
+            String id;
             switch (a) {
                 case "1":
-                    String id;
-                    System.out.println("Name");
-                    String name = sc.next();
-                    sc.nextLine();
-                    System.out.println("Discription about task");
-                    String dis = sc.nextLine();
-                    Date dat=new Date();
-                    System.out.println("Enter Due Date in (DD/MM/YYYY) format");
-                    String sdueDate = sc.nextLine();
-                    SimpleDateFormat sdfo=new SimpleDateFormat("dd/MM/yyyy");
-                    Date dueDate=sdfo.parse(sdueDate);
-                    Status st= Status.valueOf("Assigned");
-                    tm.add(name, dis, dat, st, dueDate);
-                    System.out.println(".............Added...............");
+                    try {
+                        System.out.println("Name");
+                        String name = sc.next();
+                        sc.nextLine();
+                        System.out.println("Description about task");
+                        String dis = sc.nextLine();
+                        Date dat = new Date();
+                        System.out.println("Enter Due Date in (DD/MM/YYYY) format");
+                        String sdueDate = sc.nextLine();
+                        SimpleDateFormat sdfo = new SimpleDateFormat("dd/MM/yyyy");
+                        Date dueDate = sdfo.parse(sdueDate);
+                        Status st = Status.valueOf("Assigned");
+                        tm.add(name, dis, dat, st, dueDate);
+                        System.out.println(".............Added...............");
+                    }
+                    catch (NullPointerException e)
+                    {
+                        System.out.println(e);
+                        System.out.println("You are not allowed to leave any of the fields empty");
+                    }
+                    catch(ParseException p)
+                    {
+                        System.out.println(p);
+                        System.out.println("Plz Provide Date in the mentioned format");
+                    }
                     break;
 
                 case "2":
                     List <Task> taskList=tm.display();
 
-                    if(taskList==null)
+                    if(taskList.isEmpty())
                     {
-                        // System.out.println("Not Found");
+                         System.out.println("Not Found");
                     }
                     else {
                         System.out.println(".............Contents...............");
@@ -57,11 +70,11 @@ public class App {
                     System.out.println("Enter name to be searched");
                     String n = sc.next();
                     sc.nextLine();
+                    flag=0;
                     List<Task> nameSearchList=tm.search(n);
-
-                   if(nameSearchList==null)
+                   if(nameSearchList.isEmpty())
                    {
-                      // System.out.println("Not Found");
+                       System.out.println("Not Found");
                    }
                    else {
                        for (Task obj : nameSearchList) {
@@ -76,13 +89,14 @@ public class App {
                            if (obj.id1.equals(id)){
                                System.out.println("ID:" + obj.id1);
                                System.out.println("Name:" + obj.name1);
-                               System.out.println("Discription:" + obj.dis1);
-                               System.out.println("Date:"+obj.dat1);
+                               System.out.println("Description:" + obj.dis1);
                                System.out.println("Due date:"+obj.due1);
                                System.out.println("Status:" + obj.st1);
                                System.out.println();
-
+                               flag++;
                            }
+                           if(flag==0)
+                               System.out.println("No such ID found");
                        }
                    }
                     break;
@@ -94,9 +108,10 @@ public class App {
                     n = sc.next();
                     sc.nextLine();
                     List<Task> deleteList = tm.search(n);
+                    flag=0;
 
-                    if (deleteList == null) {
-                        // System.out.println("Not Found");
+                    if (deleteList.isEmpty()) {
+                         System.out.println("Not Found");
                     }
                     else {
 
@@ -105,9 +120,18 @@ public class App {
                             System.out.println("Name:" + obj.name1);
                             System.out.println();
                         }
-                        System.out.println("Enter id to get deleted perminently");
+                        System.out.println("Enter id to get deleted permanently");
                         id = sc.next();
-                        tm.delete(n,id);
+                        for (Task obj : deleteList) {
+                            if (obj.id1.equals(id)) {
+                                tm.delete(n,id);
+                                flag++;
+                            }
+                        }
+                        if(flag==0) {
+                            System.out.println("No such ID found");
+                            break;
+                        }
                     }
                 }
 
@@ -122,12 +146,21 @@ public class App {
                     System.out.println("Enter status to be searched(Assigned,InProgress,Complete)");
                     n = sc.next();
                     sc.nextLine();
+                    try {
+                        Status v = Status.valueOf(n);
+                    }
+                    catch (IllegalArgumentException e)
+                    {
+                        System.out.println(e);
+                        System.out.println("Plz type only from the above given options, try again");
+                    }
                     System.out.println(n);
+                    flag=0;
                     List<Task> satusSearchList=tm.searchStatus(n);
 
-                    if(satusSearchList==null)
+                    if(satusSearchList.isEmpty())
                     {
-                        // System.out.println("Not Found");
+                         System.out.println("Not Found");
                     }
                     else
                     {
@@ -139,18 +172,24 @@ public class App {
                         }
                         System.out.println("Enter id to get full details");
                         id = sc.next();
+
                         System.out.println(".............Contents...............");
                         for (Task obj : satusSearchList) {
                             if (obj.id1.equals(id)) {
                                 System.out.println("ID:" + obj.id1);
                                 System.out.println("Name:" + obj.name1);
-                                System.out.println("Discription:" + obj.dis1);
+                                System.out.println("Description:" + obj.dis1);
                                 System.out.println("Date:" + obj.dat1);
                                 System.out.println("Due date:" + obj.due1);
                                 System.out.println("Status:" + obj.st1);
                                 System.out.println();
-
+                                flag++;
                             }
+                        }
+                        if(flag==0)
+                        {
+                            System.out.println("No such ID found");
+                            break;
                         }
                     }
 
@@ -162,9 +201,9 @@ public class App {
                     sc.nextLine();
                     System.out.println(n);
                     List<Task>updateList = tm.search( n);
-                    if(updateList==null)
+                    if(updateList.isEmpty())
                     {
-                        // System.out.println("Not Found");
+                         System.out.println("Not Found");
                     }
 
                   else {
@@ -179,16 +218,26 @@ public class App {
                         for (Task obj : updateList) {
                             if (obj.id1.equals(id)) {
                                 System.out.println("Change the Status to(Assigned,InProgress,Complete)");
-                                try {
-                                    String status1 = sc.next();
-                                    Status status=Status.valueOf(status1);
-                                    tm.updateStatus(status, n, id);
+                                String status1= sc.next();;
+                                Status status;
+                                try{
+                                    status=Status.valueOf(status1);
                                 }
-                                catch(Exception e)
+                                catch(IllegalArgumentException e)
                                 {
-                                    System.out.println("It is not from the above items");
+                                    System.out.println(e);
+                                    flag++;
+                                    System.out.println("Plz type only from the above given options only, try again");
+                                    break;
                                 }
+                                tm.updateStatus(status, n, id);
+                                flag++;
                             }
+                        }
+                        if(flag==0)
+                        {
+                            System.out.println("No such ID found");
+                            break;
                         }
                         System.out.println(".............Updated...............");
                     }
@@ -197,9 +246,9 @@ public class App {
                 case "7":
                     List<Task> pendingTask=tm.getPendingTask();
 
-                    if(pendingTask==null)
+                    if(pendingTask.isEmpty())
                     {
-                        // System.out.println("Not Found");
+                         System.out.println("Not Found");
                     }
 
                     else
@@ -214,9 +263,9 @@ public class App {
                     Date date=new Date();
                     List<Task> todaysTask=tm.getTodaysTask(date);
 
-                    if(todaysTask==null)
+                    if(todaysTask.isEmpty())
                     {
-                        // System.out.println("Not Found");
+                         System.out.println("Not Found");
                     }
                     else {
                         Print(todaysTask);
@@ -228,7 +277,7 @@ public class App {
                     break;
 
                 default:
-                    System.out.println("Plz Enter Correct Input from (1-5)");
+                    System.out.println("Plz Enter Correct Input from (1-9)");
                     System.out.println();
                     break;
 
@@ -239,7 +288,7 @@ public class App {
         for (Task obj : list) {
             System.out.println("Id:" + obj.id1);
             System.out.println("Name:" + obj.name1);
-            System.out.println("Discription:" + obj.dis1);
+            System.out.println("Description:" + obj.dis1);
             System.out.println("Due date:" + obj.due1);
             System.out.println("Status:" + obj.st1);
             System.out.println();
