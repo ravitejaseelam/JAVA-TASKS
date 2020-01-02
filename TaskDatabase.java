@@ -15,8 +15,16 @@ public class TaskDatabase implements TaskRepository{
     static Statement stmt;
     SimpleDateFormat sdfo=new SimpleDateFormat("yyyy-MM-dd");
     TaskDatabase() throws SQLException {
-         con = DriverManager.getConnection("jdbc:mysql://localhost:3306/new", "testuser", "password");
-         stmt=con.createStatement();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/new", "testuser", "password");
+            stmt = con.createStatement();
+        }
+         catch(ClassNotFoundException e)
+        {
+            System.out.println(e);
+        }
+
     }
 
 

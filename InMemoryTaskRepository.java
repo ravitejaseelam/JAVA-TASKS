@@ -1,6 +1,5 @@
 package com.raviteja;
 
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,8 +15,8 @@ public class InMemoryTaskRepository implements TaskRepository{
     public void updateStatus(Status status, String name, String id) {
 
         for (Task obj : taskList) {
-            if (obj.name1.equals(name) && obj.id1.equals(id))
-                obj.st1 = status;
+            if (obj.name.equals(name) && obj.id.equals(id))
+                obj.status = status;
         }
     }
 
@@ -25,7 +24,7 @@ public class InMemoryTaskRepository implements TaskRepository{
     public List<Task> getPendingTask() {
         List<Task> pendingList = new ArrayList<Task>();
         for (Task obj : taskList) {
-            if (!obj.name1.equals(Status.valueOf("Complete")))
+            if (!obj.name.equals(Status.valueOf("Complete")))
                 pendingList.add(obj);
         }
         return pendingList;
@@ -40,7 +39,7 @@ public class InMemoryTaskRepository implements TaskRepository{
         Date d1 = formatter1.parse(strDate);
         Date d2;
         for (Task obj : taskList) {
-            String strDueDate = dateFormat.format(obj.due1);
+            String strDueDate = dateFormat.format(obj.duedate);
             d2=formatter1.parse(strDueDate);
             // System.out.println(d1+"   "+d2);
             if (d1.compareTo(d2)==0)
@@ -64,7 +63,7 @@ public class InMemoryTaskRepository implements TaskRepository{
     public List<Task> search( String n) {
         List<Task> nameSearchList = new ArrayList<Task>();
         for (Task obj : taskList) {
-            if (obj.name1.equals(n))
+            if (obj.name.equals(n))
                 nameSearchList.add(obj);
         }
         return nameSearchList;
@@ -73,16 +72,15 @@ public class InMemoryTaskRepository implements TaskRepository{
     public List<Task> searchStatus( String n) {
         List<Task> statusSerchList = new ArrayList<Task>();
         for (Task obj : taskList) {
-            if (obj.st1.equals(Status.valueOf(n)))
+            if (obj.status.equals(Status.valueOf(n)))
                 statusSerchList.add(obj);
         }
         return statusSerchList;
 
     }
     public void delete( String n,String id) {
-        List<Task> deletedList = new ArrayList<Task>();
         for (Task obj : taskList) {
-            if (obj.id1.equals(Status.valueOf(id)))
+            if (obj.id.equals(id))
                 taskList.remove(obj);
         }
     }

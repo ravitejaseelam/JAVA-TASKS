@@ -1,12 +1,8 @@
 package com.raviteja;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.*;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -56,9 +52,9 @@ public class TaskFileRepository implements TaskRepository {
     @Override
     public List<Task> search(String n) {
         List<Task> nameSearchList = new ArrayList<Task>();
-
+        tasks=readFromFile();
         for (Task obj : tasks) {
-            if (obj.name1.equals(n))
+            if (obj.name.equals(n))
                 nameSearchList.add(obj);
         }
         return nameSearchList;
@@ -69,7 +65,7 @@ public class TaskFileRepository implements TaskRepository {
         List<Task> statusSerchList = new ArrayList<Task>();
         List<Task> taskList = readFromFile();
         for (Task obj : taskList) {
-            if (obj.st1.equals(Status.valueOf(n)))
+            if (obj.status.equals(Status.valueOf(n)))
                 statusSerchList.add(obj);
         }
         return statusSerchList;
@@ -80,7 +76,7 @@ public class TaskFileRepository implements TaskRepository {
         List<Task> deletedList = new ArrayList<Task>();
         tasks=readFromFile();
         for (Task obj : tasks) {
-            if (obj.id1.equals(Status.valueOf(id)))
+            if (obj.id.equals(Status.valueOf(id)))
                 tasks.remove(obj);
         }
         writeToFile(tasks);
@@ -98,8 +94,8 @@ public class TaskFileRepository implements TaskRepository {
     @Override
     public void updateStatus(Status status, String name, String id) {
         for (Task obj : tasks) {
-            if (obj.name1.equals(name) && obj.id1.equals(id))
-                obj.st1 = status;
+            if (obj.name.equals(name) && obj.id.equals(id))
+                obj.status = status;
         }
         writeToFile(tasks);
     }
@@ -109,7 +105,7 @@ public class TaskFileRepository implements TaskRepository {
         List<Task> pendingList = new ArrayList<Task>();
         tasks=readFromFile();
         for (Task obj : tasks) {
-            if (!(obj.st1.equals(Status.valueOf("Complete"))))
+            if (!(obj.status.equals(Status.valueOf("Complete"))))
                 pendingList.add(obj);
         }
         return pendingList;
@@ -125,7 +121,7 @@ public class TaskFileRepository implements TaskRepository {
         Date d1 = formatter1.parse(strDate);
         Date d2;
         for (Task obj : tasks) {
-            String strDueDate = dateFormat.format(obj.due1);
+            String strDueDate = dateFormat.format(obj.duedate);
             d2=formatter1.parse(strDueDate);
            // System.out.println(d1+"   "+d2);
             if (d1.compareTo(d2)==0)

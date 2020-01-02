@@ -2,70 +2,69 @@ package com.raviteja;
 import java.util.Date;
 
 public class Task {
-    String name1, dis1, id1;
-    Date dat1, due1;
-    Status st1;
+    String name, description, id;
+    Date date, duedate;
+    Status status;
+
 
 
     public Task() {
     }
     public Task(String name, String dis, Date dat, Status st, String id, Date dueDate) {
-
-        this.name1 = name;
-        this.dis1 = dis;
-        this.dat1 = dat;
-        this.st1 = st;
-        this.id1 = id;
-        this.due1 = dueDate;
-
+        this.name = name;
+        this.description = dis;
+        this.date = dat;
+        this.status = st;
+        this.id = id;
+        this.duedate = dueDate;
     }
 
-    public String getName1() {
-        return name1;
+    public String getName() {
+        return name;
     }
 
-    public void setName1(String name1) {
-        this.name1 = name1;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDis1() {
-        return dis1;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDis1(String dis1) {
-        this.dis1 = dis1;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getId1() {
-        return id1;
+    public String getId() {
+        return id;
     }
 
-    public void setId1(String id1) {
-        this.id1 = id1;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Date getDat1() {
-        return dat1;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDat1(Date dat1) {
-        this.dat1 = dat1;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public Date getDue1() {
-        return due1;
+    public Date getDuedate() {
+        return duedate;
     }
 
-    public void setDue1(Date due1) {
-        this.due1 = due1;
+    public void setDuedate(Date duedate) {
+        this.duedate = duedate;
     }
 
     public Status getSt1() {
-        return st1;
+        return status;
     }
 
     public void setSt1(Status st1) {
-        this.st1 = st1;
+        this.status = st1;
     }
 
 

@@ -6,7 +6,7 @@ import java.util.*;
 
 public class TaskManager {
    //InMemoryTaskRepository repository=new InMemoryTaskRepository();
-    //TaskFileRepository repository =new TaskFileRepository();
+//    TaskFileRepository repository =new TaskFileRepository();
     TaskDatabase repository =new TaskDatabase();
 
     public TaskManager() throws SQLException {
@@ -20,7 +20,7 @@ public class TaskManager {
 
     public void add( String name, String dis, Date due, Status st,Date dueDate) throws SQLException {
         Random n = new Random();
-        int sid=n.nextInt(100);
+        int sid=n.nextInt(10000);
         String id= String.valueOf(sid);
         repository.add(name,dis,due,st,id,dueDate);
     }
